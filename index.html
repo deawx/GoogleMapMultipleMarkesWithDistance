@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospitals Map</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="SummaryService.js"></script>
+    <script src="LocationService.js"></script>
+    <script src="DirectionService.js"></script>
+    <script src="HomeLocationService.js"></script>
+    <script src="HospitalService.js"></script>
+    <script src="GoogleMapsService.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzOfCkdgpNV_CAO43hFiLTK_ABScUKne8&callback=init"
+            async defer></script>
+
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <label for="homeAddress"> Enter Home Address : </label>
+    <input type="text" id="homeAddress">
+    <input type="button" id="loadLocationBtn" value="Load Locations" onclick="setHomeAddress()">
+    <input type="button" value="Clear Home Location" onclick="clearHomeAddress()">
+</div>
+
+<div id="loadingStatus"></div>
+<div id="map"></div>
+</body>
+</html>
