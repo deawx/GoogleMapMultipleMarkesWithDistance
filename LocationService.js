@@ -25,7 +25,6 @@ function fetchCoordinatesForLocation(locationName, successCallBack, failureCallB
             successCallBack(results[0].geometry.location);
         }
         else {
-            console.log(status);
             failureCallBack(status);
         }
     });
