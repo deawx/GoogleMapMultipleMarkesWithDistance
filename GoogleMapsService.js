@@ -1,27 +1,40 @@
 var map;
 var homeCoordinates;
-var homeAddress = "Mahabellana";
+var homeAddress;
 var hospitalAddresses = getHospitals();
 var loadedLocationsCount = 0;
 var STATUS_FOUND = "FOUND";
 var STATUS_NOT_FOUND = "NOT_FOUND";
 var missedLocationsCount = 0;
 
-function initMap() {
+function init() {
+    if (isHomeLocationCached()) {
+        displayExistingHomeLocationToUser();
+    }
+    createMap();
+}
 
-    //window.localStorage.clear();
-    //console.log(JSON.stringify(localStorage));
+function setHomeAddress() {
+    homeAddress = document.getElementById("homeAddress").value;
+    loadLocations();
+}
 
+function clearHomeAddress() {
+    document.getElementById("homeAddress").value = "";
+    document.getElementById("homeAddress").disabled = true
+    clearCachedHomeLocationAndDirections();
+}
+
+function loadLocations() {
     console.warn(" -------------- Total Number of Hospitals : " + hospitalAddresses.length + " -------------- ");
 
     initLocationService();
     initDirectionService();
-    createMap();
 
     var loadingFinished = locationLoadingFinished;
 
     placeMarkerAtHomeLocation(function () {
-        setHomeLocationInfo(homeAddress, homeCoordinates);
+        initHomeLocationService(homeAddress, homeCoordinates);
 
         for (var i = 0; i < hospitalAddresses.length; i++) {
             placeMarkerAtHospital(hospitalAddresses[i], loadingFinished);
@@ -29,11 +42,17 @@ function initMap() {
     });
 }
 
+function updateDisplayStatus() {
+    document.getElementById("loadingStatus").innerHTML = " Loading Locations, Please wait... " +
+        "(Total Location Count :" + hospitalAddresses.length + " | Locations Loaded :" + loadedLocationsCount + " | Locations Failed to Load :" + missedLocationsCount + ")";
+}
+
 function locationLoadingFinished(status) {
     loadedLocationsCount++;
     if (status == STATUS_NOT_FOUND) {
         missedLocationsCount++;
     }
+    updateDisplayStatus();
 
     if (loadedLocationsCount === hospitalAddresses.length) {
         console.warn("-------------- Total Number of Hospitals could not be Located : " + missedLocationsCount + " -------------- ");
@@ -42,7 +61,15 @@ function locationLoadingFinished(status) {
     }
 }
 
+function displayExistingHomeLocationToUser() {
+    document.getElementById("homeAddress").value = getCachedHomeLocation();
+    document.getElementById("homeAddress").disabled = true;
+}
+
 function createMap() {
+    // window.localStorage.clear();
+    // console.log(JSON.stringify(localStorage));
+
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
         zoom: 10
