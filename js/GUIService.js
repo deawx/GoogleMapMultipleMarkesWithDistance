@@ -39,12 +39,17 @@ GUIService = function () {
         getHomeAddressTextField().disabled = true;
         getLoadLocationsButton().disabled = true;
         getClearLocationsButton().disabled = true;
-        showSpinners();
+        startSpinners();
     }
 
-    function showSpinners() {
+    function startSpinners() {
         document.getElementById("spinner1").className += "glyphicon-refresh spinning";
         document.getElementById("spinner2").className += " glyphicon-refresh spinning";
+    }
+    
+    function stopSpinners() {
+        document.getElementById("spinner1").classList.remove("glyphicon-refresh");
+        document.getElementById("spinner2").classList.remove("glyphicon-refresh");
     }
 
     function clearHomeAddress() {
@@ -54,7 +59,7 @@ GUIService = function () {
 
     function setHomeAddress(homeAddress) {
         getHomeAddressTextField().value = homeAddress;
-        // getHomeAddressTextField().disabled = true;
+        getHomeAddressTextField().disabled = true;
     }
 
     function setDataLoadingProgress(currentStatusSummary) {
@@ -70,6 +75,7 @@ GUIService = function () {
     }
 
     function displaySummary(locationLoadingStats, locationsByDistance, locationsByDuration) {
+        stopSpinners();
         displayStatsSummary(locationLoadingStats);
         displaySummaryOfLocationsByDistance(locationsByDistance);
         displaySummaryOfLocationsByDuration(locationsByDuration);
@@ -79,8 +85,8 @@ GUIService = function () {
     }
 
     function autoScrollToResults() {
-        location.href = "#";
-        location.href = "#divLocationByDistance";
+        // location.href = "#";
+        // location.href = "#divLocationByDistance";
     }
 
     function displaySummaryOfLocationsByDistance(locationsByDistance) {

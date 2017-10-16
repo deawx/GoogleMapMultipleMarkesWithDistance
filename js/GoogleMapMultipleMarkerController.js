@@ -14,7 +14,7 @@ GoogleMapMultipleMarkerController = function () {
             GUIService.showMap();
         }, getLocationsFileName());
     }
-    
+
     function getLocationsFileName() {
         var fileName = "CustomLocationsInput.html";
         if (window.location.href.endsWith("hospitalLocations")) {
@@ -22,7 +22,7 @@ GoogleMapMultipleMarkerController = function () {
         }
         return fileName;
     }
-    
+
     function start(homeLocation) {
         homeAddress = homeLocation;
         allLocations = LocationService.getLocationNames();
