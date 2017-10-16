@@ -1,22 +1,31 @@
 GoogleMapMultipleMarkerController = function () {
     var homeCoordinates;
     var homeAddress;
-    var allLocations = LocationService.getLocationNames();
+    var allLocations;
     var LOCATION_FOUND = "LOCATION_FOUND";
     var LOCATION_NOT_FOUND = "LOCATION_NOT_FOUND";
     var QUERY_LIMIT_EXCEEDED = "QUERY_LIMIT_EXCEEDED";
 
     function init() {
-        w3.includeHTML(function () {
+        w3.includeHTMLCustom(function () {
             if (HomeLocationService.isHomeLocationCached()) {
                 GUIService.setHomeAddress(HomeLocationService.getCachedHomeLocation());
             }
             GUIService.showMap();
-        });
+        }, getLocationsFileName());
+    }
+    
+    function getLocationsFileName() {
+        var fileName = "CustomLocationsInput.html";
+        if (window.location.href.endsWith("hospitalLocations")) {
+            fileName = "HospitalLocationsInput.html";
+        }
+        return fileName;
     }
     
     function start(homeLocation) {
         homeAddress = homeLocation;
+        allLocations = LocationService.getLocationNames();
         GUIService.disableUserInput();
         StatisticsService.init(allLocations.length);
         loadLocations();

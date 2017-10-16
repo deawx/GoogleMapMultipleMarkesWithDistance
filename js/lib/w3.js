@@ -249,6 +249,28 @@ w3.includeHTML = function(cb) {
     }
     if (cb) cb();
 };
+w3.includeHTMLCustom = function(cb, fileName) {
+    var z, i, elmnt, file, xhttp;
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        file = elmnt.getAttribute("w3-include-html");
+        if (file) {
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    elmnt.innerHTML = this.responseText;
+                    elmnt.removeAttribute("w3-include-html");
+                    w3.includeHTML(cb);
+                }
+            }
+            xhttp.open("GET", fileName, true);
+            xhttp.send();
+            return;
+        }
+    }
+    if (cb) cb();
+};
 w3.getHttpData = function (file, func) {
     w3.http(file, function () {
         if (this.readyState == 4 && this.status == 200) {
