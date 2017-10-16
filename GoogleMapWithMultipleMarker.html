@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospitals Map</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/lib/w3.js"></script>
+    <script src="js/GUIService.js"></script>
+    <script src="js/StatisticsService.js"></script>
+    <script src="js/MarkerService.js"></script>
+    <script src="js/TravelInfoService.js"></script>
+    <script src="js/HomeLocationService.js"></script>
+    <script src="js/LocationService.js"></script>
+    <script src="js/GoogleMapMultipleMarkerController.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzOfCkdgpNV_CAO43hFiLTK_ABScUKne8&callback=GoogleMapMultipleMarkerController.init"
+            async defer></script>
+    <script src="js/CustomLocationsInput.js"></script>
+    <script src="js/HospitalLocationsInput.js"></script>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/my.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 90%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div w3-include-html="PlaceHolder"></div>
+
+<div id="loadingStatus" class="row col-sm-push-1 col-sm-10 alert alert-info" style="display: none"></div>
+
+<div id="map" class="col-sm-12"></div>
+
+<div class="container">
+
+    <div class="row top-buffer" id="divLocationByDistance" style="display: none">
+        <h2>Locations by Distance</h2>
+        <div class="col-sm-12">
+            <div>
+                <table class="table table-bordered" id="locationByDistance">
+                    <thead class="thead-inverse">
+                    <td class="col-md-1">#</td>
+                    <td class="col-md-7">Location Name</td>
+                    <td class="col-md-2">Distance</td>
+                    <td class="col-md-2">Travel Time</td>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row top-buffer" id="divLocationByDuration" style="display: none">
+        <h2>Locations by Travel Time</h2>
+        <div class="col-sm-12">
+            <table class="table table-bordered" id="locationByDuration">
+                <thead class="thead-inverse">
+                <td class="col-md-1">#</td>
+                <td class="col-md-7">Location Name</td>
+                <td class="col-md-2">Travel Time</td>
+                <td class="col-md-2">Distance</td>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
