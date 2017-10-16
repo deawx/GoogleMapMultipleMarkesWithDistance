@@ -1,22 +1,24 @@
 GoogleMapMultipleMarkerController = function () {
     var homeCoordinates;
     var homeAddress;
-    var hospitalAddresses = LocationService.getLocationNames();
+    var allLocations = LocationService.getLocationNames();
     var LOCATION_FOUND = "LOCATION_FOUND";
     var LOCATION_NOT_FOUND = "LOCATION_NOT_FOUND";
     var QUERY_LIMIT_EXCEEDED = "QUERY_LIMIT_EXCEEDED";
 
     function init() {
-        if (HomeLocationService.isHomeLocationCached()) {
-            GUIService.setHomeAddress(HomeLocationService.getCachedHomeLocation());
-        }
-        GUIService.showMap();
+        w3.includeHTML(function () {
+            if (HomeLocationService.isHomeLocationCached()) {
+                GUIService.setHomeAddress(HomeLocationService.getCachedHomeLocation());
+            }
+            GUIService.showMap();
+        });
     }
-
+    
     function start(homeLocation) {
         homeAddress = homeLocation;
         GUIService.disableUserInput();
-        StatisticsService.init(hospitalAddresses.length);
+        StatisticsService.init(allLocations.length);
         loadLocations();
     }
 
@@ -36,8 +38,8 @@ GoogleMapMultipleMarkerController = function () {
             HomeLocationService.initHomeLocationService(homeAddress, homeCoordinates);
             TravelInfoService.setHomeLocationInfo(homeAddress, homeCoordinates);
 
-            for (var i = 0; i < hospitalAddresses.length; i++) {
-                placeMarkerAtHospital(hospitalAddresses[i], loadingFinished);
+            for (var i = 0; i < allLocations.length; i++) {
+                placeMarkerAtLocation(allLocations[i], loadingFinished);
             }
         });
     }
@@ -56,14 +58,14 @@ GoogleMapMultipleMarkerController = function () {
     }
 
     function placeMarkerAtHomeLocation(callBack) {
-        placeMarkerAtLocation(homeAddress, true, callBack);
+        placeMarkerAtGivenLocation(homeAddress, true, callBack);
     }
 
-    function placeMarkerAtHospital(hospitalLocation, callBack) {
-        placeMarkerAtLocation(hospitalLocation, false, callBack);
+    function placeMarkerAtLocation(hospitalLocation, callBack) {
+        placeMarkerAtGivenLocation(hospitalLocation, false, callBack);
     }
 
-    function placeMarkerAtLocation(locationName, isHome, loadingFinishedCallBack) {
+    function placeMarkerAtGivenLocation(locationName, isHome, loadingFinishedCallBack) {
         MarkerService.getMarkerCoordinatesForLocation(locationName, function (coordinates) {
             if (isHome) {
                 homeCoordinates = coordinates;
@@ -87,12 +89,12 @@ GoogleMapMultipleMarkerController = function () {
     }
 
     return {
-        init : init,
-        start : start,
-        clearAllLocations : clearAllLocations,
-        LOCATION_FOUND : LOCATION_FOUND,
-        LOCATION_NOT_FOUND : LOCATION_NOT_FOUND,
-        QUERY_LIMIT_EXCEEDED : QUERY_LIMIT_EXCEEDED
+        init: init,
+        start: start,
+        clearAllLocations: clearAllLocations,
+        LOCATION_FOUND: LOCATION_FOUND,
+        LOCATION_NOT_FOUND: LOCATION_NOT_FOUND,
+        QUERY_LIMIT_EXCEEDED: QUERY_LIMIT_EXCEEDED
     }
 
 }();

@@ -3,6 +3,7 @@
 <head>
     <title>Hospitals Map</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/lib/w3.js"></script>
     <script src="js/GUIService.js"></script>
     <script src="js/StatisticsService.js"></script>
     <script src="js/MarkerService.js"></script>
@@ -12,6 +13,8 @@
     <script src="js/GoogleMapMultipleMarkerController.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzOfCkdgpNV_CAO43hFiLTK_ABScUKne8&callback=GoogleMapMultipleMarkerController.init"
             async defer></script>
+    <script src="js/CustomLocationsInput.js"></script>
+    <script src="js/HospitalLocationsInput.js"></script>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
@@ -37,26 +40,8 @@
 </head>
 <body>
 
-
-<div class="container">
-    <div class="row  top-buffer">
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="homeAddress" class="col-form-label"> Enter Home Address : </label>
-                <input type="text" placeholder="Enter Home Address" class="form-control" id="homeAddress">
-            </div>
-            <button id="loadLocationBtn" class="btn btn-large btn-primary"
-                    onclick="GoogleMapMultipleMarkerController.start(document.getElementById('homeAddress').value)">Load
-                Locations <span><i id="spinner1" class="glyphicon "></i></span>
-            </button>
-            <button id="clearLocationsBtn" class="btn btn-large btn-danger"
-                    onclick="GoogleMapMultipleMarkerController.clearAllLocations()">Clear All Locations
-                <span><i id="spinner2" class="glyphicon "></i></span>
-            </button>
-        </form>
-    </div>
-    <div class="top-buffer"></div>
-</div>
+<div w3-include-html="HospitalLocationsInput.html"></div>
+<!--<div w3-include-html="CustomLocationsInput.html"></div>-->
 
 <div id="loadingStatus" class="row col-sm-push-1 col-sm-10 alert alert-info" style="display: none"></div>
 

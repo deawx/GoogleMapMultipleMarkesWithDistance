@@ -74,6 +74,8 @@ GUIService = function () {
         displaySummaryOfLocationsByDistance(locationsByDistance);
         displaySummaryOfLocationsByDuration(locationsByDuration);
         autoScrollToResults();
+        getLoadLocationsButton().value = "Location Loading Completed";
+        getClearLocationsButton().value = "Location Loading Completed";
     }
 
     function autoScrollToResults() {
