@@ -19,6 +19,7 @@ GoogleMapMultipleMarkerController = function () {
         var fileName = "CustomLocationsInput.html";
         if (window.location.href.endsWith("hospitalLocations")) {
             fileName = "HospitalLocationsInput.html";
+            document.title = "Sri Lanka Doctor's North and East Transfer List 2017"
         }
         return fileName;
     }
