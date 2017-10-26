@@ -12,9 +12,18 @@ HospitalLocationsInput = function () {
         LocationService.clearLocationNames();
         GoogleMapMultipleMarkerController.clearAllLocations();
     }
+    
+    function validate(homeAddress) {
+        getStartButton().disabled = !homeAddress;
+    }
+    
+    function getStartButton() {
+        return document.getElementById("loadLocationBtn");
+    }
 
     return {
         start: start,
-        clearAllLocations: clearAllLocations
+        clearAllLocations: clearAllLocations,
+        validate : validate
     }
 }();

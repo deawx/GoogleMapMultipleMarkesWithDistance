@@ -23,6 +23,14 @@ CustomLocationsInput = function () {
         GoogleMapMultipleMarkerController.start(homeAddress);
     }
 
+    function validateInput(homeAddress, locations) {
+        getLoadLocationBtn().disabled = !(homeAddress && locations);
+    }
+
+    function getLoadLocationBtn() {
+        return document.getElementById("loadLocationBtn");
+    }
+
     function clearAllLocations() {
         getLocationsTextArea().value = "";
         LocationService.clearLocationNames();
@@ -43,7 +51,8 @@ CustomLocationsInput = function () {
 
     return {
         start: start,
-        clearAllLocations: clearAllLocations
+        clearAllLocations: clearAllLocations,
+        validateInput: validateInput
     }
 
 }();
