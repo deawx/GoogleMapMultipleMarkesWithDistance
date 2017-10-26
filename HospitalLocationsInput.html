@@ -3,9 +3,9 @@
         <form class="form-inline" onsubmit="return false">
             <div class="form-group">
                 <label for="homeAddress" class="col-form-label">Your Home Address : </label>
-                <input type="text" placeholder="Enter Home Address" class="form-control" id="homeAddress">
+                <input type="text" placeholder="Enter Home Address" class="form-control" id="homeAddress" onkeyup="HospitalLocationsInput.validate(document.getElementById('homeAddress').value)">
             </div>
-            <button id="loadLocationBtn" class="btn btn-large btn-primary"
+            <button id="loadLocationBtn" disabled class="btn btn-large btn-primary"
                     onclick="HospitalLocationsInput.start(document.getElementById('homeAddress').value)">Load
                 All Hospitals <span><i id="spinner1" class="glyphicon "></i></span>
             </button>
